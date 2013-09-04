@@ -137,7 +137,7 @@
 
 <?php 
 // set a random background for the home page
-$bg = rand(1, 7); 
+$bg = rand(1, 6); 
 $class = is_front_page() ? 'background'.$bg : '';
 ?>
 <div id="main" role="main" class="<?= $class; ?>">
