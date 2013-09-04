@@ -474,7 +474,7 @@ a:hover {
 	
 	@for $i from 1 through 6 {
 		&.background#{$i} {
-			background-image: url(../images/background#{$i}.jpg);
+			background-image: url(../images/background#{$i}.jpg?v=20130904);
 			.caption-#{$i} {
 				display: block !important;
 			}
