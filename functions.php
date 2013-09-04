@@ -72,7 +72,6 @@ remove_action('wp_head', 'wp_generator');
 add_action( 'admin_menu', 'my_remove_menus', 999 );
 function my_remove_menus() {
 	remove_menu_page( 'edit-comments.php' );
-	remove_menu_page( 'upload.php' );
 	remove_menu_page( 'link-manager.php' );
 	remove_submenu_page( 'edit.php', 'edit-tags.php' );
 }

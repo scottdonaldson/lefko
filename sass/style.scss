@@ -472,9 +472,12 @@ a:hover {
 	@include background-size(cover);
 	height: 100%; 
 	
-	@for $i from 1 through 5 {
+	@for $i from 1 through 10 {
 		&.background#{$i} {
 			background-image: url(../images/background#{$i}.jpg);
+			.caption-#{$i} {
+				display: block !important;
+			}
 		}
 	}
 }
@@ -515,6 +518,7 @@ a:hover {
 	border-top: 2px solid $cream;
 	bottom: 20px;
 	color: $cream;
+	display: none;
 	font-size: 80%;
 	position: absolute;
 	right: 30px;

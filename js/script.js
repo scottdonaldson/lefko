@@ -11,21 +11,6 @@ jQuery(document).ready(function($){
 		menuImage = menuItem.find('.menu-description'),
 		subMenu = $('.sub-menu');
 
-	/* --------- MAIN PAGE BACKGROUND ------- */
-
-	var main = $('#main'),
-		caption = $('.caption');
-	caption.hide().each(function(){
-		$this = $(this);
-		for (i = 1; i <=5; i++) {
-			if (main.hasClass('background'+i)) {
-				if ($this.hasClass('caption-'+i)) {
-					$this.show();
-				}
-			}
-		}
-	});
-
 	/* --------- NAVIGATION MENU ------------ */
 
 	// Background images for those that have them

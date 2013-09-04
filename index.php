@@ -25,4 +25,14 @@
 	<p>Minneapolis College of Art and Design, Minneapolis, MN</p>
 </div>
 
+<div class="caption caption-6">
+	<h3>Placeholder, 2013</h3>
+	<p>Peripatetic Gallery | Northern Spark Festival, St. Paul, MN</p>
+</div>
+
+<div class="caption caption-7">
+	<h3>Nirthfolde Visitor's Bureau, 2013</h3>
+	<p>Northfield Arts Guild Gallery, Northfield, MN</p>
+</div>
+
 <?php get_footer(); ?>

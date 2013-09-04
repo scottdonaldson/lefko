@@ -135,5 +135,9 @@
     </section>
 </header>
 
-<?php $bg = rand(1,5); ?>
-<div id="main" role="main" class="background<?php echo $bg; ?>">
+<?php 
+// set a random background for the home page
+$bg = rand(1, 7); 
+$class = is_front_page() ? 'background'.$bg : '';
+?>
+<div id="main" role="main" class="<?= $class; ?>">
