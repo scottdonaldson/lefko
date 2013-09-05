@@ -1,7 +1,8 @@
 jQuery(document).ready(function($){
 
 	// Declare variables
-	var header = $('header'),
+	var win = $(window),
+		header = $('header'),
 		siteTitle = $('#site-title'),
 		menuItem = $('.standard .menu li a'),
 		IEmenuItem = $('.lt-ie9 .menu li'),
@@ -14,19 +15,14 @@ jQuery(document).ready(function($){
 	/* --------- NAVIGATION MENU ------------ */
 
 	// Background images for those that have them
-	menuImage.each(function(){
-		$this = $(this);
-		var link = $this.closest('a');
-		link.addClass('image');
-	});
+	menuImage.closest('a').addClass('image');
 
 	// For all links that go to another page,
 	// add class of 'is-link' (show line
 	// extending to right for cladogram on click)
 	menuItem.each(function(){
 		$this = $(this);
-		var target = $this.attr('href');
-		if (target[0] != '#') {
+		if ($this.attr('href') !== '#') {
 			$this.parent('li').addClass('is-link');
 		}
 
@@ -34,24 +30,25 @@ jQuery(document).ready(function($){
 		var text = $this.html();		
 		
 		if ($this.hasClass('image')) {
-			$this.on('mouseenter',function(){
+			$this.mouseenter(function(){
 				$this = $(this);
 				var height = $this.closest('li').height();
 
 				$this.css('background-image', 'url(' + $this.find('.menu-description').text() + ')').html('&nbsp;').height(height);
-			}).on('mouseleave',function(){
+			}).mouseleave(function(){
 				$(this).css('background-image', 'none').html(text);
 			});
 		}
 	});
 
 	// Wrap submenus to help with styling
-	subMenu.wrap('<div class="wrapper"></div>');
-	var wrapHeight = function(){
-		$('.wrapper').height($(window).height());
+	var wrapper = $('<div class="wrapper"></div>');
+	subMenu.wrap(wrapper);
+	function wrapHeight(){
+		wrapper.height(win.height());
 	}
 	wrapHeight();
-	$(window).on('resize', wrapHeight);
+	win.resize(wrapHeight);
 
 	// Insert border before submenu for cladogram
 	subMenu.before('<div class="border-left"></div>');
@@ -60,7 +57,7 @@ jQuery(document).ready(function($){
 	// to set padding of its submenu
 	subMenu.each(function(){
 		$(this).children('li').each(function(i){
-			$(this).addClass('subitem-'+(i+1));
+			$(this).addClass('subitem-' + (i + 1));
 		});
 	});
 
@@ -72,8 +69,8 @@ jQuery(document).ready(function($){
 		var subHeight = li.children('.wrapper').children('.sub-menu').height();
 		li.children('.wrapper')
 			.find('.border-left').css({
-				'height': subHeight-37,
-				'margin-bottom': -subHeight+35
+				'height': subHeight - 37,
+				'margin-bottom': -subHeight + 35
 			});	
 	});
 
@@ -84,11 +81,11 @@ jQuery(document).ready(function($){
 	IEmenuItem.each(function(){
 		$this = $(this);
 		if (!$this.hasClass('is-link')) {
-			$this.on('mouseover',function(){
+			$this.mouseenter(function(){
 				$this = $(this);
 				$this.children('a').addClass('IE-active');
 				$this.siblings('li').children('a').removeClass('IE-active');
-			}).on('mouseleave',function(){
+			}).mouseleave(function(){
 				$this = $(this);
 				$this.children('a').removeClass('IE-active');
 			});
@@ -115,7 +112,7 @@ jQuery(document).ready(function($){
 		}
 	});
 
-	mobileMenuItem.on('click',function(){
+	mobileMenuItem.click(function(){
 		var li = $(this).parent('li');
 		// Set height of submenu
 		var subHeight = li.children('.wrapper').children('.sub-menu').attr('data-height');
@@ -165,24 +162,6 @@ jQuery(document).ready(function($){
 				});	
 		}
 	});
-
-		// or, for large touch screens
-		/*
-		} else {
-			menuItem.each(function(){
-				var li = $(this).parent('li');
-				
-				// Set height of submenu
-				var subHeight = li.children('.wrapper').children('.sub-menu').height();
-				li.children('.wrapper')
-					.find('.border-left').css({
-						'height': subHeight-35,
-						'margin-bottom': -subHeight+35
-					});	
-			});
-		}
-		*/
-	// });	
 		
 	// ----- SPACER
 	var spacer = $('.spacer');
@@ -191,7 +170,7 @@ jQuery(document).ready(function($){
 		spacer.width(spacerWidth);
 	}	
 	spacerSize();
-	$(window).on('resize', spacerSize);
+	win.resize(spacerSize);
 
 	/* ----------- Upcoming Events ----- */
 	var events = $('.events'),
@@ -199,7 +178,7 @@ jQuery(document).ready(function($){
 		down = up.next(),
 		eventsHeight = events.find('article').length * 120,
 		pos = 0;
-	up.on('click',function(){
+	up.click(function(){
 		down.removeClass('faded');
 
 		if (pos + 120 < 0) {
@@ -215,7 +194,7 @@ jQuery(document).ready(function($){
 			up.addClass('faded');
 		}
 	});
-	down.on('click',function(){
+	down.click(function(){
 		up.removeClass('faded');
 
 		if (pos - 240 > -eventsHeight) {
@@ -223,7 +202,7 @@ jQuery(document).ready(function($){
 			events.find('article').animate({
 				'top': pos,
 			});
-		} else if (pos - 240 == -eventsHeight) {
+		} else if (pos - 240 === -eventsHeight) {
 			pos = pos - 120;
 			events.find('article').animate({
 				'top': pos,
@@ -249,11 +228,11 @@ jQuery(document).ready(function($){
 
 	// Set height of content and center image
 	// (do same on resize)
-	var centerThings = function(){
-		var cHeight = $(window).height()-110,
+	function centerThings(){
+		var cHeight = win.height() - 110,
 			shown = $('.shown'),
-			margin = .5*(cHeight - shown.height()-54),
-			thumbMargin = .5*(cHeight - thumbsDiv.height()-54);
+			margin = 0.5 * (cHeight - shown.height() - 54),
+			thumbMargin = 0.5 * (cHeight - thumbsDiv.height() - 54);
 		content.height(cHeight);
 		shown.find('img').css({
 			'height': 'auto',
@@ -277,7 +256,7 @@ jQuery(document).ready(function($){
 			thumbsDiv.css('margin-top', thumbMargin);
 		}
 	}
-	$(window).on('load', centerThings).on('resize', centerThings);
+	win.on('load resize', centerThings);
 
 	// Add cladogram lines for details
 	details.each(function(){
@@ -316,7 +295,7 @@ jQuery(document).ready(function($){
 	gallery.find('li').last().addClass('final');
 	
 	// Set size of description equal to its image
-	var descWidth = function(){
+	function descWidth(){
 		var shown = $('.shown'),
 			desc = shown.find('.description');
 		desc.width(desc.prev('img').width());
@@ -324,12 +303,12 @@ jQuery(document).ready(function($){
 			desc.addClass('narrow');
 		}
 	}
-	$(window).on('load',descWidth).on('resize',descWidth);
+	win.on('load resize', descWidth);
 
 	// Fade out Prev
 	prev.addClass('faded');
 
-	var goPrev = function(){
+	function goPrev(){
 		next.removeClass('faded');
 
 		var shown = $('.shown');
@@ -392,7 +371,7 @@ jQuery(document).ready(function($){
 		centerThings();
 		descWidth();
 	}
-	var goNext = function(){
+	function goNext(){
 		prev.removeClass('faded');
 
 		var shown = $('.shown');
@@ -446,7 +425,7 @@ jQuery(document).ready(function($){
 			} else {
 				ul.stop().animate({
 					'top': 0,
-				})
+				});
 			}
 		}	
 		centerThings();
@@ -454,46 +433,33 @@ jQuery(document).ready(function($){
 	}
 
 	// Arrow keys left and right
-	$(document).on('keydown',function(e){
-		if (e.keyCode == 37) { // previous
+	$(document).keydown(function(e) {
+		var code = e.keyCode || e.which;
+		if (code === 37 || code === 38) { // previous
 			e.preventDefault();
 			goPrev();
-		} else if (e.keyCode == 38) { // previous
-			e.preventDefault();
-			goPrev();
-		} else if (e.Keycode == 39) { // next
+		} else if (code === 39 || code === 40) { // next
 			e.preventDefault();
 			goNext();
-		} else if (e.keyCode == 40) { // next
-			e.preventDefault();
-			goNext();
-		}
+		} 
 	});
 	// Click 'Prev' or 'Next'
 	var interval = null;
-	thumbsDiv.find('.prev').on('click',function(){
-		goPrev();
-	}).on('mousedown',function(){
+	thumbsDiv.find('.prev').click(goPrev).mousedown(function(){
 		clearInterval(interval);
-		interval = setInterval(function(){
-			goPrev();
-		}, 500);
-	}).on('mouseup',function(){
+		interval = setInterval(goPrev, 500);
+	}).mouseup(function(){
 		clearInterval(interval);
 	});
-	thumbsDiv.find('.next').on('click',function(){
-		goNext();
-	}).on('mousedown',function(){
+	thumbsDiv.find('.next').click(goNext).mousedown(function(){
 		clearInterval(interval);
-		interval = setInterval(function(){
-			goNext();
-		}, 500);
-	}).on('mouseup',function(){
+		interval = setInterval(goNext, 500);
+	}).mouseup(function(){
 		clearInterval(interval);
 	});
 	
 	// Clicking on a thumbnail
-	thumbs.find('li').on('click',function(){
+	thumbs.find('li').click(function(){
 		$this = $(this);
 
 		// Is this a detail?
@@ -511,9 +477,9 @@ jQuery(document).ready(function($){
 		
 		// Get height of all visible thumbnails
 		if ($this.hasClass('detail')) {
-			var thumbHeightVis = (thumbs.find('li').not('.detail').length + $this.prevUntil('.orig').length + $this.nextUntil('.orig').length + 1)*55;
+			var thumbHeightVis = (thumbs.find('li').not('.detail').length + $this.prevUntil('.orig').length + $this.nextUntil('.orig').length + 1) * 55;
 		} else {
-			var thumbHeightVis = (thumbs.find('li').not('.detail').length + $this.nextUntil('.orig').length)*55;
+			var thumbHeightVis = (thumbs.find('li').not('.detail').length + $this.nextUntil('.orig').length) * 55;
 		}
 
 		if (thumbHeightVis > 370) {					
