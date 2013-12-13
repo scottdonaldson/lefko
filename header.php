@@ -66,22 +66,19 @@
         <div class="events clearfix">
             <?php 
             $date = date('Ymd');
-            query_posts(array(
+            $event_query = new WP_Query(array(
                 'meta_key' => 'start_date', // name of custom field
-                'numberposts' => -1,
+                'posts_per_page' => -1,
                 'orderby' => 'meta_value_num',
                 'order' => 'ASC',
                 'post_type' => 'dl_events',
             ));
-            while (have_posts()) : the_post();
+            while ($event_query->have_posts()) : $event_query->the_post();
 
-                if (get_field('link')) {
-                    $link = get_field('link');
-                }
                 // Is this a single date event?
-                if (get_field('end_date') == '') { 
+                if (!get_field('end_date')) { 
                     // Make sure it hasn't passed
-                    if ($date <= get_field('start_date')) { ?>
+                    if ( $date <= intval( get_field( 'start_date' ) ) ) { ?>
                         <article <?php post_class(); ?>>
                             <?php if (get_field('link')) { ?>
                             <a href="<?php echo get_field('link'); ?>" rel="bookmark" title="<?php the_title(); ?>">
@@ -98,9 +95,9 @@
                         </article><?php 
                     }
                 // Is there an end date? (range of dates) 
-                } elseif (get_field('end_date') != '') { 
+                } else { 
                     // Make sure it hasn't passed
-                    if ($date <= get_field('end_date')) { ?>
+                    if ( $date <= intval( get_field( 'end_date' ) ) ) { ?>
                         <article <?php post_class(); ?>>
                             <?php if (get_field('link')) { ?>
                             <a href="<?php echo get_field('link'); ?>" target="_blank" title="<?php the_title(); ?>">
