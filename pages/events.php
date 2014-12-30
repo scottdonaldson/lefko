@@ -124,6 +124,9 @@ wp_reset_query();
 		foreach ( $events as $key => $event ) {
 			output_event($event);
 		}
+		if ( count($events) === 0 ) {
+			echo '<p>No events for this date range.</p>';
+		}
 		?>
 	</div>
 
