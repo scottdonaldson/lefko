@@ -17,8 +17,8 @@
 
     <link rel="shortcut icon" href="<?php bloginfo('template_url'); ?>/favicon.ico" />
 
-    <link rel="stylesheet" href="<?php echo bloginfo('template_url'); ?>/style.css">
-    <link rel="stylesheet" href="<?php echo bloginfo('template_url'); ?>/css/style.css">
+    <link rel="stylesheet" href="<?php echo bloginfo('template_url'); ?>/style.css?v=20141230_1041">
+    <link rel="stylesheet" href="<?php echo bloginfo('template_url'); ?>/css/style.css?v=20141230_1041">
 
     <script src="<?php echo bloginfo('template_url'); ?>/js/lib/modernizr-2.8.3.js"></script>
 
