@@ -1,0 +1,23 @@
+h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.alignleft {
+    float: left;
+    margin: 0 1em 1em 0;
+}
+
+.alignright {
+    float: right;
+    margin: 0 0 0 1em;
+}
+
+.aligncenter {
+    display: block;
+    margin: 0em auto 1em;
+    text-align: center;
+}

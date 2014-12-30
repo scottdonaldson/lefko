@@ -1,0 +1,15 @@
+{
+  "name": "lefkowitz",
+  "description": "Website for artist David Lefkowitz.",
+  "version": "2.0.1",
+  "homepage": "http://www.davidlefkowitz.net",
+  "repository": "https://github.com/scottdonaldson/lefko",
+  "dependencies": {
+    "grunt": "^0.4.5",
+    "grunt-autoprefixer": "^2.0.0",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-contrib-sass": "^0.8.1",
+    "grunt-contrib-uglify": "^0.7.0",
+    "grunt-contrib-watch": "^0.6.1"
+  }
+}

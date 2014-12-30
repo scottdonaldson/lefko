@@ -1,79 +1,11 @@
-// Imports
-@import "compass";
-
-// Colors
-$cream: #eae8dd;
-$grey: #c8c6c3;
-
-// Mixins
-@mixin border {
-	border: 3px solid #000;
-}
-@mixin tight {
-	margin: 0;
-	padding: 0;
-}
-
-/*! @license
- * MyFonts Webfont Build ID 2355197, 2012-09-03T15:56:58-0400
- * 
- * The fonts listed in this notice are subject to the End User License
- * Agreement(s) entered into by the website owner. All other parties are 
- * explicitly restricted from using the Licensed Webfonts(s).
- * 
- * You may obtain a valid license at the URLs below.
- * 
- * Webfont: Futura Medium by Bitstream
- * URL: http://www.myfonts.com/fonts/bitstream/futura/medium/
- * Licensed pageviews: 10,000
- * 
- * Webfont: Futura Medium Italic by Bitstream
- * URL: http://www.myfonts.com/fonts/bitstream/futura/medium-italic/
- * Licensed pageviews: unspecified
- * 
- * Webfont: Futura Bold by Bitstream
- * URL: http://www.myfonts.com/fonts/bitstream/futura/bold/
- * Licensed pageviews: unspecified
- * 
- * License: http://www.myfonts.com/viewlicense?type=web&buildid=2355197
- * Webfonts copyright: Copyright 1990-2003 Bitstream Inc. All rights reserved.
- * 
- * © 2012 Bitstream Inc
-*/
-@font-face {
-	font-family: 'Futura';
-	src: url('../fonts/23EFFD_0_0.eot');
-	src: url('../fonts/23EFFD_0_0.eot?#iefix') format('embedded-opentype'),
-		 url('../fonts/23EFFD_0_0.woff') format('woff'),
-		 url('../fonts/23EFFD_0_0.ttf') format('truetype');
-	font-weight: normal;
-	font-style: normal;
-}
-@font-face {
- 	font-family: 'FuturaItalic';
- 	src: url('../fonts/23EFFD_1_0.eot');
- 	src: url('../fonts/23EFFD_1_0.eot?#iefix') format('embedded-opentype'),
- 		 url('../fonts/23EFFD_1_0.woff') format('woff'),
- 		 url('../fonts/23EFFD_1_0.ttf') format('truetype');
- 	font-weight: normal;
- 	font-style: italic;
-}
-@font-face {
-	font-family: 'FuturaBold';
-	src: url('../fonts/23EFFD_2_0.eot');
-	src: url('../fonts/23EFFD_2_0.eot?#iefix') format('embedded-opentype'),
-		 url('../fonts/23EFFD_2_0.woff') format('woff'),
-		 url('../fonts/23EFFD_2_0.ttf') format('truetype');
-	font-weight: normal;
-	font-style: normal;
-}
-em, em *, i, i * { font-family: 'FuturaItalic' !important; }
-strong, strong *, b, b * { font-family: 'FuturaBold' !important; }
-
+@import "normalize";
+@import "reset";
+@import "fonts";
+@import "vars";
 
 // ----- General styles
 * {
-	@include box-sizing(border-box);
+	box-sizing: border-box;
 	font-family: 'Futura', Helvetica, Arial, sans-serif;
 	letter-spacing: 0.03em;
 }
@@ -114,7 +46,7 @@ a:hover {
 
 .faded {
 	cursor: default !important;
-	@include opacity(0.35);
+	opacity: 0.35;
 }
 
 // ----- Navigation
@@ -167,7 +99,7 @@ a:hover {
 	li {
 		font-size: 15px;
 		list-style-type: none;
-		
+
 		.lt-ie9 & {
 			position: relative;
 		}
@@ -197,7 +129,7 @@ a:hover {
 				&:hover {
 					background-repeat: no-repeat;
 					background-position: center center;
-					@include background-size(cover);
+					background-size: cover;
 					color: transparent;
 
 					.lt-ie9 & {
@@ -230,10 +162,6 @@ a:hover {
 				top: -30px;
 				width: 30px;
 				z-index: 1000;
-
-				.lt-ie9 & {
-					display: none;
-				}
 			}
 
 			&.is-link:after {
@@ -244,6 +172,7 @@ a:hover {
 		.standard &:hover {
 			& > .wrapper {
 				display: block !important;
+				height: 100%;
 			}
 		}
 
@@ -259,7 +188,7 @@ a:hover {
 				padding-top: 110px;
 			}
 		}
-		
+
 		&.level-0 > .wrapper {
 			left: 210px;
 			width: 270px;
@@ -384,7 +313,19 @@ a:hover {
 
 		article {
 			height: 120px;
+			overflow: hidden;
 			position: relative;
+
+			&:after {
+				background: linear-gradient(top, rgba(255, 255, 255, 0) 0%, $cream 100%);
+				bottom: 0;
+				content: "";
+				display: block;
+				height: 24px;
+				left: 0;
+				position: absolute;
+				width: 100%;
+			}
 		}
 
 		p {
@@ -469,9 +410,9 @@ a:hover {
 .home #main {
 	background-repeat: no-repeat;
 	background-position: center center;
-	@include background-size(cover);
-	height: 100%; 
-	
+	background-size: cover;
+	height: 100%;
+
 	@for $i from 1 through 6 {
 		&.background#{$i} {
 			background-image: url(../images/background#{$i}.jpg?v=20130904);
@@ -495,7 +436,7 @@ a:hover {
 	ul {
 		list-style: none;
 		@include tight;
-		
+
 		li {
 			margin-bottom: 5px;
 		}
@@ -538,7 +479,7 @@ a:hover {
 	#content {
 		ul {
 			list-style-type: none;
-			@include tight;			
+			@include tight;
 		}
 	}
 }
@@ -558,7 +499,7 @@ a:hover {
 		li {
 			display: none;
 			margin-bottom: 0;
-		}	
+		}
 
 		li:first-child {
 			display: block;
@@ -600,14 +541,14 @@ a:hover {
 	}
 
 	li {
-		@include clearfix;
+		clear: both;
 		cursor: pointer;
 		margin-bottom: 15px;
 		position: relative;
 		width: 100%;
 
 		img {
-			@include border;	
+			@include border;
 			height: 40px;
 			position: relative;
 			width: 200px;
@@ -622,7 +563,7 @@ a:hover {
 			top: 3px;
 			width: 34px;
 		}
-		
+
 		&.detail {
 			float: right;
 			overflow: visible !important;
@@ -792,7 +733,7 @@ a:hover {
 		@media screen and (max-width: 860px) {
 			padding-right: 0;
 			width: 100%;
-		}		
+		}
 	}
 
 	.right {
@@ -803,7 +744,7 @@ a:hover {
 		}
 		@media screen and (max-width: 860px) {
 			display: none;
-		}		
+		}
 		.featured {
 			img {
 				display: block;
@@ -825,7 +766,7 @@ a:hover {
 		h3 {
 			margin-bottom: 40px;
 		}
-		.archive { 
+		.archive {
 			border: 0 none;
 			text-transform: uppercase;
 
@@ -866,7 +807,7 @@ a:hover {
 	.touch {
 		body {
 			height: auto;
-			
+
 			&.home {
 				height: 100%;
 			}
@@ -934,6 +875,7 @@ a:hover {
 					}
 				}
 			}
+
 			&.big-menu {
 				#header {
 					.below {
@@ -1022,7 +964,7 @@ a:hover {
 				}
 			}
 		}
-	
+
 		.home {
 			#main {
 				background-color: $cream;
@@ -1092,7 +1034,7 @@ a:hover {
 				&.middle, &.right {
 					text-align: left;
 				}
-			}		
+			}
 		}
 	}
 
@@ -1145,7 +1087,7 @@ a:hover {
 					display: none !important;
 				}
 			}
-			
+
 			&.level-1 {
 				a.IE-active:after {
 					left: 180px;

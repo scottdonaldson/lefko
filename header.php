@@ -6,10 +6,7 @@
 
 -->
 
-<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
-<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<html class="no-js touch" lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -21,13 +18,11 @@
     <link rel="shortcut icon" href="<?php bloginfo('template_url'); ?>/favicon.ico" />
 
     <link rel="stylesheet" href="<?php echo bloginfo('template_url'); ?>/style.css">
-
-    <link rel="stylesheet" href="<?php echo bloginfo('template_url'); ?>/style.css">
     <link rel="stylesheet" href="<?php echo bloginfo('template_url'); ?>/css/style.css">
 
-    <script src="<?php echo bloginfo('template_url'); ?>/js/libs/modernizr-2.5.3.min.js"></script>
+    <script src="<?php echo bloginfo('template_url'); ?>/js/lib/modernizr-2.8.3.js"></script>
 
-<?php wp_head(); ?>  
+<?php wp_head(); ?>
 </head>
 
 <body <?php body_class(); ?>>
@@ -42,8 +37,8 @@
 	<h3 id="site-title">
         <a href="<?php echo home_url(); ?>" rel="home" title="David Lefkowitz">David Lefkowitz</a>
     </h3>
-	
-    <?php } 
+
+    <?php }
     $walker = new Thumb_Walker;
     $args = array(
         'theme_location' => 'primary-menu',
@@ -53,7 +48,7 @@
     	<?php wp_nav_menu($args); ?>
     </div>
     <div class="mobile">
-        <?php 
+        <?php
         $m_walker = new Mobile_Walker;
         $mobile = array(
             'theme_location' => 'primary-menu',
@@ -62,79 +57,19 @@
     </div>
 
     <section class="below">
-        <h2>Current &amp; Upcoming Events</h2>
-        <div class="events clearfix">
-            <?php 
-            $date = date('Ymd');
-            $event_query = new WP_Query(array(
-                'meta_key' => 'start_date', // name of custom field
-                'posts_per_page' => -1,
-                'orderby' => 'meta_value_num',
-                'order' => 'ASC',
-                'post_type' => 'dl_events',
-            ));
-            while ($event_query->have_posts()) : $event_query->the_post();
 
-                // Is this a single date event?
-                if (!get_field('end_date')) { 
-                    // Make sure it hasn't passed
-                    if ( $date <= intval( get_field( 'start_date' ) ) ) { ?>
-                        <article <?php post_class(); ?>>
-                            <?php if (get_field('link')) { ?>
-                            <a href="<?php echo get_field('link'); ?>" rel="bookmark" title="<?php the_title(); ?>">
-                                <?php the_title(); ?>
-                            </a>
-                            <?php } else { the_title(); } ?>
-                            <p>
-                                <?php 
-                                $start = get_field('start_date');
-                                echo dl_date($start); ?>
-                                <br />
-                                <?php the_field('location'); ?>
-                            </p>
-                        </article><?php 
-                    }
-                // Is there an end date? (range of dates) 
-                } else { 
-                    // Make sure it hasn't passed
-                    if ( $date <= intval( get_field( 'end_date' ) ) ) { ?>
-                        <article <?php post_class(); ?>>
-                            <?php if (get_field('link')) { ?>
-                            <a href="<?php echo get_field('link'); ?>" target="_blank" title="<?php the_title(); ?>">
-                                <?php the_title(); ?>
-                            </a>
-                            <?php } else { the_title(); } ?>
-                            <p>
-                                <?php 
-                                $start = get_field('start_date');
-                                $end = get_field('end_date');
-                                echo dl_date($start).' - '.dl_date($end); ?>
-                                <br />
-                                <?php the_field('location'); ?>
-                            </p>
-                        </article><?php 
-                    }
-                } 
-            endwhile;
-            wp_reset_query(); ?>
-        </div><!-- .events -->
-        <div class="up faded"></div>
-        <div class="down"></div>
-
-        <div class="archive">
-            <a href="<?php echo home_url(); ?>/events-exhibitions/?archive=<?php echo date('Y'); ?>">Archived Events</a>
-        </div>
+        <?php get_template_part('events'); ?>
 
         <a class="email alignleft" href="mailto:dlefkowi@carleton.edu"></a>
         <a class="ps alignright" href="http://www.parsleyandsprouts.com" target="_blank" title="Site created by Parsley &amp; Sprouts"></a>
-        <p class="copyright">&copy; <?php echo date('Y'); ?> David Lefkowitz</p>
-       
+        <p class="copyright">&copy; <?= date('Y'); ?> David Lefkowitz</p>
+
     </section>
 </header>
 
-<?php 
+<?php
 // set a random background for the home page
-$bg = rand(1, 6); 
+$bg = rand(1, 6);
 $class = is_front_page() ? 'background'.$bg : '';
 ?>
 <div id="main" role="main" class="<?= $class; ?>">

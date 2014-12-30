@@ -1,0 +1,12 @@
+// Colors
+$cream: #eae8dd;
+$grey: #c8c6c3;
+
+// Mixins
+@mixin border {
+    border: 3px solid #000;
+}
+@mixin tight {
+    margin: 0;
+    padding: 0;
+}
